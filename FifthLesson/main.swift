@@ -11,7 +11,7 @@ import Foundation
 //1. Создать протокол «Car» и описать свойства, общие для автомобилей, а также метод действия.
 
 enum Brand {
-    case bmw, vw, mercedes, porsche, skoda, opel, renault, tesla, volvo
+    case bmw, vw, mercedes, porsche, skoda, opel, renault, tesla, volvo, kamaz
 }
 
 enum EngineType {
@@ -48,7 +48,7 @@ extension Car {
             print("Engine of \(brand) is on. Please fasten your seat belts")
         case .stopEngine:
             self.engineIsOn = false
-            print("Egine of \(brand) is off. Please don't forget your cell phone in the car")
+            print("Engine of \(brand) is off. Please don't forget your cell phone in the car")
         }
     }
 }
@@ -120,22 +120,43 @@ class TruckCar: Car {
 
 //4. Для каждого класса написать расширение, имплементирующее протокол CustomStringConvertible.
 
-    print("Task 4. TODO")
-    print()
+extension SportCar: CustomStringConvertible {
+    var description: String {
+        return("This is \(brand) sport car with \(engineType) engine reaching maximum of \(maxSpeed) km/h and produced in \(yearOfProduction). So far it ran \(mileage) miles. ")
+    }
+}
+
+extension TruckCar: CustomStringConvertible {
+    var description: String {
+        return("This is \(brand) truck car with \(engineType) engine produced in \(yearOfProduction) and caring up to \(tankCapacity) litres of liquids in its tank. So far the tank has \(100 - (Double(tankOccupancy)/Double(tankCapacity)*100))% capacity available.")
+    }
+}
 
 //5. Создать несколько объектов каждого класса. Применить к ним различные действия.
 
 var myTesla = SportCar(brand: .tesla, engineType: .electric, yearOfProduction: 2020, milage: 7_500, engineIsOn: false, windowsAreOpen: false, maxSpeed: 210)
 myTesla.windowsAction(.openWindows)
-myTesla.windowsAction(.closeWindows)
+print()
+
+var myPorsche = SportCar(brand: .porsche, engineType: .petrol, yearOfProduction: 2019, milage: 123, engineIsOn: false, windowsAreOpen: false, maxSpeed: 285)
+myPorsche.windowsAction(.closeWindows)
 print()
 
 var myVolvo = TruckCar(brand: .volvo, engineType: .petrol, yearOfProduction: 2018, milage: 123, engineIsOn: false, windowsAreOpen: false, tankCapacity: 5_000, tankOccupancy: 2_450)
 myVolvo.engineAction(.startEngine)
-myVolvo.engineAction(.stopEngine)
+print()
+
+var myKamaz = TruckCar(brand: .kamaz, engineType: .petrol, yearOfProduction: 2018, milage: 30_500, engineIsOn: false, windowsAreOpen: false, tankCapacity: 6_000, tankOccupancy: 5700)
+myKamaz.engineAction(.stopEngine)
 print()
 
 //6. Вывести сами объекты в консоль.
 
-print(myVolvo.brand, myVolvo.engineType, myVolvo.yearOfProduction, myVolvo.mileage, myVolvo.engineIsOn, myVolvo.windowsAreOpen)
+print(myTesla)
+print()
+print(myPorsche)
+print()
+print(myVolvo)
+print()
+print(myKamaz)
 print()
